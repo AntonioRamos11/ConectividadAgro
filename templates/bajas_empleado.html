@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Bajas de Empleado{% endblock %}
+{% block content %}
+<h2>Bajas de empleado</h2>
+
+<!-- Tabla para mostrar los empleados disponibles -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for empleado in empleados %}
+        <tr>
+            <td>{{ empleado[0] }}</td> <!-- ID -->
+            <td>{{ empleado[1] }}</td> <!-- Nombre -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Formulario para eliminar -->
+<form method="post" action="{{ url_for('bajas_empleado') }}" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="id" class="form-label">Selecciona el ID del empleado a eliminar</label>
+        <select class="form-select" id="id" name="id" required>
+            {% for empleado in empleados %}
+            <option value="{{ empleado[0] }}">{{ empleado[0] }} - {{ empleado[1] }}</option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Por favor, selecciona un ID válido.</div>
+    </div>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>
+
+{% if mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+{% endblock %}

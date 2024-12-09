@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Altas{% endblock %}
+{% block content %}
+<h2>Altas de sucursales</h2>
+<form method="post" action="{{ url_for('altas') }}" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="id_sucursal" class="form-label">ID Sucursal</label>
+        <input type="text" class="form-control" id="id_sucursal" name="id_sucursal" required>
+        <div class="invalid-feedback">Por favor, ingresa un ID válido.</div>
+    </div>
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+        <div class="invalid-feedback">Por favor, ingresa un nombre.</div>
+    </div>
+    <div class="mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" class="form-control" id="direccion" name="direccion" required>
+        <div class="invalid-feedback">Por favor, ingresa una dirección.</div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+<!-- Mensaje de éxito o error -->
+{% if mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+
+<!-- Tabla de sucursales existentes -->
+<h3>Sucursales existentes</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sucursal in sucursales %}
+        <tr>
+            <td>{{ sucursal[0] }}</td>
+            <td>{{ sucursal[1] }}</td>
+            <td>{{ sucursal[2] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

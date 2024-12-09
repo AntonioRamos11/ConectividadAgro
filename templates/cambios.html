@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Cambios de Puesto{% endblock %}
+{% block content %}
+<h2>Cambiar Puesto de Empleado</h2>
+
+<form method="post" action="{{ url_for('cambios') }}" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="id_empleado" class="form-label">Seleccionar Empleado</label>
+        <select class="form-control" id="id_empleado" name="id_empleado" required>
+            {% for empleado in empleados %}
+            <option value="{{ empleado[0] }}">
+                {{ empleado[0] }} - {{ empleado[1] }} ({{ empleado[2] }}, {{ empleado[3] }})
+            </option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Por favor, selecciona un empleado.</div>
+    </div>
+    <div class="mb-3">
+        <label for="nuevo_puesto" class="form-label">Nuevo Puesto</label>
+        <select class="form-control" id="nuevo_puesto" name="nuevo_puesto" required>
+            {% for puesto in puestos %}
+            <option value="{{ puesto }}">{{ puesto }}</option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">Por favor, selecciona un nuevo puesto.</div>
+    </div>
+    <button type="submit" class="btn btn-success">Actualizar Puesto</button>
+</form>
+
+<!-- Mensaje de resultado -->
+{% if mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+
+<!-- Tabla de empleados existentes -->
+<h3>Empleados Actuales</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Puesto</th>
+            <th>Tipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for empleado in empleados %}
+        <tr>
+            <td>{{ empleado[0] }}</td>
+            <td>{{ empleado[1] }}</td>
+            <td>{{ empleado[2] }}</td>
+            <td>{{ empleado[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
